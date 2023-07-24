@@ -10,7 +10,7 @@ def do_pack():
     filename = strftime("%Y%m%d%H%M%S")
     try:
         local("mkdir -p versions")
-        local("tar -czvf versions/web_static_$(date +'%Y-%m-%dT%H:%M:%S%z').tgz web_static")
+        local("tar -czvf versions/web_static_$(date +'%Y-%m-%dT%H:%M:%S%z').tgz web_static")  # noqa
 
     except Exception as e:
         return None
