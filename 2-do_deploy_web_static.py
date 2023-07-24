@@ -48,8 +48,8 @@ web_static_{}/web_static'
             # re-establish symbolic link
             run('sudo ln -s /data/web_static/releases/\
 web_static_{}/ /data/web_static/current'.format(timestamp))
-    else:
+    except Exception as e:
         return False
 
-        # return True on success
-        return True
+    # return True on success
+    return True
