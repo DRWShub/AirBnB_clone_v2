@@ -1,17 +1,18 @@
 #!/usr/bin/python3
-"""Script starts a Flask web application"""
-from flask import Flask, request
-from markupsafe import escape
+"""A script that starts a flask web application
+Your web application must be listening on 0.0.0.0, port 5000
+"""
+
+from flask import Flask
 
 app = Flask(__name__)
 
 
-@app.route('/', strict_slashes=False)
-def hello_hbnb():
-    """Displays Hello HBNB!"""
-    name = request.args.get("name", "HBNB")
-    return f'Hello {escape(name)}!'
+@app.route("/", strict_slashes=False)
+def hello():
+    """Return a given string"""
+    return ("Hello HBNB!")
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host="0.0.0.0", port=5000, debug=None)
