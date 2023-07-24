@@ -1,4 +1,4 @@
-# AirBnB clone web server setup and configuration
+# Puppet for setup
 
 $nginx_conf = "server {
     listen 80 default_server;
@@ -11,7 +11,7 @@ $nginx_conf = "server {
         index index.html index.htm;
     }
     location /redirect_me {
-        return 301 http://uniqueel.tech/;
+        return 301 http://linktr.ee/firdaus_h_salim/;
     }
     error_page 404 /404.html;
     location /404 {
@@ -21,67 +21,67 @@ $nginx_conf = "server {
 }"
 
 package { 'nginx':
-            ensure   => 'present',
-            provider => 'apt'
-          }
+  ensure   => 'present',
+  provider => 'apt'
+}
 
 -> file { '/data':
-            ensure  => 'directory'
-          }
+  ensure  => 'directory'
+}
 
 -> file { '/data/web_static':
-            ensure => 'directory'
-          }
+  ensure => 'directory'
+}
 
 -> file { '/data/web_static/releases':
-            ensure => 'directory'
-          }
+  ensure => 'directory'
+}
 
 -> file { '/data/web_static/releases/test':
-            ensure => 'directory'
-          }
+  ensure => 'directory'
+}
 
 -> file { '/data/web_static/shared':
-            ensure => 'directory'
-          }
+  ensure => 'directory'
+}
 
 -> file { '/data/web_static/releases/test/index.html':
-            ensure  => 'present',
-            content => "this webpage is found in data/web_static/releases/test/index.htm \n"
-          }
+  ensure  => 'present',
+  content => "this webpage is found in data/web_static/releases/test/index.htm \n"
+}
 
 -> file { '/data/web_static/current':
-            ensure => 'link',
-            target => '/data/web_static/releases/test'
-          }
+  ensure => 'link',
+  target => '/data/web_static/releases/test'
+}
 
 -> exec { 'chown -R ubuntu:ubuntu /data/':
-            path => '/usr/bin/:/usr/local/bin/:/bin/'
-          }
+  path => '/usr/bin/:/usr/local/bin/:/bin/'
+}
 
 file { '/var/www':
-         ensure => 'directory'
-       }
+  ensure => 'directory'
+}
 
 -> file { '/var/www/html':
-            ensure => 'directory'
-          }
+  ensure => 'directory'
+}
 
 -> file { '/var/www/html/index.html':
-            ensure  => 'present',
-            content => "This is my first upload  in /var/www/index.html***\n"
-          }
+  ensure  => 'present',
+  content => "This is my first upload  in /var/www/index.html***\n"
+}
 
 -> file { '/var/www/html/404.html':
-            ensure  => 'present',
-            content => "Ceci n'est pas une page - Error page\n"
-          }
+  ensure  => 'present',
+  content => "Ceci n'est pas une page - Error page\n"
+}
 
 -> file { '/etc/nginx/sites-available/default':
-            ensure  => 'present',
-            content => $nginx_conf
-          }
+  ensure  => 'present',
+  content => $nginx_conf
+}
 
 -> exec { 'nginx restart':
-            path => '/etc/init.d/'
-          }
+  path => '/etc/init.d/'
+}
