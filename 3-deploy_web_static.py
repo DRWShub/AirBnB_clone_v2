@@ -16,7 +16,7 @@ def do_pack():
     if not os.path.isdir("versions"):
         os.mkdir("versions")
         cur_time = datetime.now()
-        output = "tar -czvf versions/web_static_$(date +'%Y-%m-%dT%H:%M:%S%z').tgz".format(
+        output = "versions/web_static_{}{}{}{}{}{}.tgz".format(
             cur_time.year,
             cur_time.month,
             cur_time.day,
@@ -26,7 +26,7 @@ def do_pack():
                                         )
         try:
             print("Packing web_static to {}".format(output))
-            local("tar -czvf versions/web_static_$(date +'%Y-%m-%dT%H:%M:%S%z').tgz".format(output))
+            local("tar -cvzf {} web_static".format(output))
             archize_size = os.stat(output).st_size
             print("web_static packed: {} -> {} Bytes".format(output, archize_size))  # noqa
         except Exception:
