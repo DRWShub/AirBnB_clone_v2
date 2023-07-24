@@ -1,29 +1,17 @@
 #!/usr/bin/python3
-"""A script that starts a flask web application
-Your web application must be listening on 0.0.0.0, port 5000
-"""
-
+"""Script starts a Flask web application"""
 from flask import Flask, request
-from flask_restful import Resource, Api
-import sys
-import os
+from markupsafe import escape
 
 app = Flask(__name__)
-api = Api(app)
-port = 5100
-
-if sys.argv.__len__() > 1:
-    port = sys.argv[1]
-print("Api running on port : {} ".format(port))
 
 
-class topic_tags(Resource):
-    def get(self):
-        return {'hello': 'world world'}
-
-
-api.add_resource(topic_tags, '/')
+@app.route('/', strict_slashes=False)
+def hello_hbnb():
+    """Displays Hello HBNB!"""
+    name = request.args.get("name", "HBNB")
+    return f'Hello {escape(name)}!'
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=port)
+    app.run(host='0.0.0.0', port=5000)
